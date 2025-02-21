@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Prompts generator</title>
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <style>
+    body {
+      margin: 20px;
+    }
+    .container {
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h4>Prompts generator</h4>
+
+    <!-- Selector de títulos -->
+    <div class="input-field col s12">
+      <select id="promptSelector">
+        <option value="" disabled selected>Select a prompt</option>
+        <option value="A">Analista de texto</option>
+        <option value="B">Analista de inferencia causal</option>
+        <option value="C">Redactor en ciencias sociales empíricas</option>
+      </select>
+    </div>
+
+    <!-- Área donde se mostrará el prompt -->
+    <div class="input-field col s12">
+      <textarea id="promptOutput" class="materialize-textarea" placeholder="" readonly></textarea>
+      <label for="promptOutput">Prompt</label>
+    </div>
+  </div>
+
+  <!-- Importar Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    // Inicializar componente Select de Materialize
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('select');
+      M.FormSelect.init(elems);
+    });
+
+    const promptSelector = document.getElementById("promptSelector");
+    const promptOutput = document.getElementById("promptOutput");
+
+    // Cada vez que se cambia la selección, pedimos el prompt al servidor
+    promptSelector.addEventListener("change", function() {
+      const selectedTitle = this.value;
+      fetch(`/get_prompt?title=${selectedTitle}`)
+        .then(response => response.json())
+        .then(data => {
+          const prompt = data.prompt;
+          // Mostramos el prompt en el área de texto
+          promptOutput.value = prompt;
+          // Copiamos el prompt al portapapeles
+          navigator.clipboard.writeText(prompt)
+            .then(() => {
+              console.log('Prompt copiado al portapapeles');
+            })
+            .catch(err => {
+              console.error('Error al copiar el prompt:', err);
+            });
+          // Ajustar altura del textarea automáticamente (Materialize)
+          M.textareaAutoResize(promptOutput);
+        });
+    });
+  </script>
+
+</body>
+</html>
