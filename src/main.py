@@ -21,7 +21,13 @@ Requisitos de formato:
 
 1. Utiliza una lista con viñetas, con una entrada por cada referencia a un autor.
 2. Cada entrada debe seguir el siguiente formato exacto:
-Autor(es) - (Año) - Idea""",
+Autor(es) - (Año) - Idea.
+
+Además, si una idea se asocia a un conjunto de autores, debes ingresar el conjunto de autores y los años separados por ";", por ejemplo: 
+
+Input (ficticio): "La transparencia es una propiedad fisica que se configura a partir de las capacidades de absorción de la luz (Harlet y García, 2012; Pedro, 2015; Mondo, 2018)"
+Output: "Harlet y García;Pedro;Mondo - 2012;2015;2018 - La transparencia es una propiedad fisica""",
+
         "B": """Eres un asistente experto en análisis de texto. Tu tarea consiste en leer todo el texto académico proporcionado y extraer, de forma sistemática, cada relación causal mencionada por distintos autores. Para cada relación causal que encuentres, por favor registra la siguiente información:
 
 1. Autor(es)
