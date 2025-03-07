@@ -75,7 +75,5 @@ Instrucciones:
 def open_browser():
     webbrowser.open("http://127.0.0.1:5000")
 
-if __name__ == '__main__':
-    if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-        threading.Timer(1, open_browser).start()
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
