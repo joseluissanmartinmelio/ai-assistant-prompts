@@ -39,3 +39,5 @@ coverage.xml
 *.iml
 .mypy_cache/
 .pytest_cache/
+
+docker-compose.override.yml
